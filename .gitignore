@@ -1,0 +1,14 @@
+
+# Python virtual environment
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Generated audio
+audiobooks/
+
+# Environment variables
+.env
