@@ -1,350 +1,161 @@
-# [**Wattpad Audio**](https://github.com/SBPhungNguyen1/wattpad-audio-v1)
+# [Wattpad Audio](https://github.com/SBPhungNguyen1/wattpad-audio-v1)
 
-> A tiny Python tool to turn Wattpad chapters into audiobooks — so you can code, work, or do anything else while listening. 🎧
+> Turn Wattpad chapters into MP3 audiobooks. Code, work, and listen. 🎧
 
-## 🎯 Why?
+## Why?
 
 **I DON'T HAVE TIME TO SIT DOWN AND READ WATTPAD.**
 
-I just want to code while listening to stories.
+I just want to code while listening to stories. So I made this.
 
-So I made this.
+No extension. No backend. No FFmpeg.
 
-**No extension. No backend. No complicated setup.**
+<br>
 
-Just give it a Wattpad chapter link, let it extract the story, and turn the text into audio.
+**MADE FOR VIETNAMESE READERS, TOO! 🇻🇳**
 
-**Code → Listen → Repeat. 🎧**
+Bạn thích đọc truyện trên Wattpad nhưng không có thời gian ngồi đọc?
 
-## ✨ Features
+**Wattpad Audio** chuyển nội dung chương truyện thành file MP3, giúp bạn vừa nghe truyện vừa code, làm việc hoặc thư giãn.
 
-- 📖 **Automatic extraction** — uses Playwright to load and extract Wattpad chapter content.
-- 🌍 **Two language versions** — Vietnamese and English, each with its own script and voice options.
-- 🗣️ **Multiple voices** — choose between female and male voices, including American and British English options.
-- 📚 **Long-chapter support** — splits long text into smaller chunks for TTS processing.
-- 🔄 **Automatic retries** — retries failed audio-generation requests with exponential backoff.
-- 🎵 **Single MP3 output** — combines audio chunks into one MP3 file without FFmpeg.
-- 🧹 **Automatic cleanup** — temporary audio chunks are deleted after processing.
-- 📂 **Organized output** — saves generated audiobooks in the `audiobooks/` directory.
+Hỗ trợ cả **truyện tiếng Việt và tiếng Anh**, với nhiều giọng đọc để lựa chọn.
 
-## 🌐 Choose your version
+## Features
 
-**Pick the script that matches the language of the story you want to listen to — not your nationality.**
+- 📖 Automatically extract Wattpad chapter content
+- 🌍 Support for Vietnamese and English stories
+- 🗣️ Multiple AI voices
+- 🎵 Generate one MP3 file per chapter
+- 🔄 Automatic retries for failed requests
 
-| Version       | Script                   | Recommended for    | Default voice     |
-| ------------- | ------------------------ | ------------------ | ----------------- |
-| 🇻🇳 Vietnamese | `wattpad_to_audio.py`    | Vietnamese stories | Vietnamese female |
-| 🇺🇸 English    | `wattpad_to_audio_en.py` | English stories    | American female   |
+## Quick Start
 
-Both versions share the same setup and basic workflow. Choose whichever fits your story.
-
-## 🚀 How to use
-
-### 1. Requirements
-
-Make sure you have:
-
-- [Python 3.10+](https://www.python.org/downloads/)
-- An internet connection
-
-No FFmpeg required.
-
-### 2. Clone the repository
+**Requirements:** Python 3.10+ and an internet connection.
 
 ```bash
 git clone https://github.com/SBPhungNguyen1/wattpad-audio-v1.git
 cd wattpad-audio-v1
-```
 
-### 3. Create a virtual environment
-
-**Windows (PowerShell):**
-
-```powershell
 python -m venv venv
-.\venv\Scripts\Activate.ps1
 ```
 
-**macOS / Linux:**
+Activate the environment:
 
 ```bash
-python3 -m venv venv
+# Windows (PowerShell)
+.\venv\Scripts\Activate.ps1
+
+# macOS / Linux
 source venv/bin/activate
 ```
 
-### 4. Install dependencies
-
-With your virtual environment activated, run:
+Install dependencies:
 
 ```bash
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 playwright install chromium
 ```
 
-If PowerShell blocks virtual environment activation, run:
+## Usage | Cách sử dụng
 
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
-```
+Choose the script based on **the language of your story**, not your nationality.
 
-Then activate the environment again.
+_Chọn script theo ngôn ngữ của truyện, không phải quốc tịch của bạn._
 
-### 5. Generate your audiobook
+### 🇻🇳 Vietnamese stories | Truyện tiếng Việt
 
-#### 🇻🇳 Vietnamese version
-
-Use `wattpad_to_audio.py` for Vietnamese stories.
-
-**Basic usage:**
-
-```bash
-python wattpad_to_audio.py "https://www.wattpad.com/..."
-```
-
-Or run it without a link and enter the URL when prompted:
+**Method 1: Run and paste the URL | Chạy rồi dán URL**
 
 ```bash
 python wattpad_to_audio.py
 ```
 
-**Choose a voice:**
+When prompted, paste your Wattpad chapter URL and press Enter.
 
-Female voice (default):
+_Khi được hỏi, hãy dán URL chương truyện Wattpad rồi nhấn Enter._
 
-```bash
-python wattpad_to_audio.py "https://www.wattpad.com/..." --voice nu
-```
-
-Male voice:
+**Method 2: Pass the URL directly | Truyền URL trực tiếp**
 
 ```bash
-python wattpad_to_audio.py "https://www.wattpad.com/..." --voice nam
+python wattpad_to_audio.py "WATTPAD_CHAPTER_URL"
 ```
 
-#### 🇺🇸 English version
+**Choose a voice | Chọn giọng đọc**
 
-Use `wattpad_to_audio_en.py` for English stories.
-
-**Basic usage:**
+- `nu` — Female / Nữ (default / mặc định)
+- `nam` — Male / Nam
 
 ```bash
-python wattpad_to_audio_en.py "https://www.wattpad.com/..."
+python wattpad_to_audio.py "WATTPAD_CHAPTER_URL" --voice nam
 ```
 
-Or run it without a link and enter the URL when prompted:
+### 🇺🇸 English stories | Truyện tiếng Anh
+
+**Method 1: Run and paste the URL | Chạy rồi dán URL**
 
 ```bash
 python wattpad_to_audio_en.py
 ```
 
-**Choose a voice:**
+When prompted, paste your Wattpad chapter URL and press Enter.
 
-| Voice option | Voice           |
-| ------------ | --------------- |
-| `female`     | American female |
-| `male`       | American male   |
-| `uk-female`  | British female  |
-| `uk-male`    | British male    |
+_Khi được hỏi, hãy dán URL chương truyện Wattpad rồi nhấn Enter._
 
-Examples:
+**Method 2: Pass the URL directly | Truyền URL trực tiếp**
 
 ```bash
-python wattpad_to_audio_en.py "https://www.wattpad.com/..." --voice female
+python wattpad_to_audio_en.py "WATTPAD_CHAPTER_URL"
 ```
+
+**Choose a voice | Chọn giọng đọc**
+
+- `female` — US female
+- `male` — US male
+- `uk-female` — UK female
+- `uk-male` — UK male
 
 ```bash
-python wattpad_to_audio_en.py "https://www.wattpad.com/..." --voice uk-female
+python wattpad_to_audio_en.py "WATTPAD_CHAPTER_URL" --voice uk-female
 ```
 
-You can also specify any supported Edge TTS voice directly:
+### Adjust reading speed | Điều chỉnh tốc độ đọc
+
+Use `--rate` to make the narration faster or slower.
+
+_Dùng `--rate` để tăng hoặc giảm tốc độ đọc._
 
 ```bash
-python wattpad_to_audio_en.py "https://www.wattpad.com/..." --voice en-AU-NatashaNeural
+# 10% faster
+python wattpad_to_audio.py "WATTPAD_CHAPTER_URL" --rate +10%
+
+# 10% slower
+python wattpad_to_audio.py "WATTPAD_CHAPTER_URL" --rate -10%
 ```
 
-To see all available voices:
+You can combine options, too:
 
 ```bash
-edge-tts --list-voices
+python wattpad_to_audio_en.py "WATTPAD_CHAPTER_URL" --voice uk-female --rate +10%
 ```
 
-### 6. Adjust the speaking rate
+Your MP3 files will be saved in `audiobooks/`.
 
-Both versions support adjusting the speaking rate.
+## Notes
 
-**Read 10% faster:**
-
-```bash
-python wattpad_to_audio.py "https://www.wattpad.com/..." --rate +10%
-```
-
-For English:
-
-```bash
-python wattpad_to_audio_en.py "https://www.wattpad.com/..." --rate +10%
-```
-
-**Read 10% slower:**
-
-```bash
-python wattpad_to_audio.py "https://www.wattpad.com/..." --rate -10%
-```
-
-Replace the script name with `wattpad_to_audio_en.py` if you're using the English version.
-
-### 7. Enjoy your audiobook 🎧
-
-Both versions save generated MP3 files in:
-
-```text
-audiobooks/
-└── Chapter_Title.mp3
-```
-
-Each chapter produces one MP3 file named after its chapter title.
-
-## 🔁 Next time
-
-No need to reinstall anything.
-
-Open a terminal in the project folder, activate your virtual environment, and run the version you want.
-
-**Windows (PowerShell):**
-
-```powershell
-.\venv\Scripts\Activate.ps1
-```
-
-For Vietnamese:
-
-```bash
-python wattpad_to_audio.py "https://www.wattpad.com/..."
-```
-
-For English:
-
-```bash
-python wattpad_to_audio_en.py "https://www.wattpad.com/..."
-```
-
-When you're done:
-
-```bash
-deactivate
-```
-
-## ⚠️ Note
-
-- This project relies on Wattpad's current page structure. Changes to the website may break content extraction.
-- Audio generation requires an internet connection because Edge TTS processes text online.
-- Long chapters may take several minutes to process.
-- MP3 chunks are concatenated directly, relying on their compatible encoding and format.
-- Choose a voice that matches the language of your story for the best listening experience.
-- Respect Wattpad's Terms of Service, copyright, and authors' rights. Use the tool responsibly and do not redistribute copyrighted content without permission.
-
----
-
-## 🇻🇳 Tiếng Việt
-
-> Một công cụ Python nhỏ giúp chuyển chương truyện Wattpad thành audiobook MP3, để vừa code, vừa làm việc, vừa nghe truyện. 🎧
-
-### 🎯 Tại sao?
-
-**QUÁ LƯỜI ĐỂ NGỒI ĐỌC CHỮ TRÊN WATTPAD.**
-
-Muốn vừa ngồi code vừa nghe truyện cho có động lực.
-
-Vậy nên viết tạm cái tool này.
-
-**Không extension. Không backend. Không cần FFmpeg.**
-
-Đưa link Wattpad → Chuyển thành audio → Vừa nghe truyện vừa code (hoặc làm bất cứ việc gì khác).
-
-### 🌍 Hiện tại có 2 phiên bản
-
-Bạn không cần là người Việt để dùng bản tiếng Việt, cũng không cần là người nước ngoài để dùng bản tiếng Anh.
-
-**Hãy chọn phiên bản theo ngôn ngữ truyện bạn muốn nghe.**
-
-| Phiên bản     | File chạy                | Phù hợp với                             |
-| ------------- | ------------------------ | --------------------------------------- |
-| 🇻🇳 Vietnamese | `wattpad_to_audio.py`    | Truyện tiếng Việt, giọng đọc tiếng Việt |
-| 🇺🇸 English    | `wattpad_to_audio_en.py` | Truyện tiếng Anh, giọng Mỹ hoặc Anh     |
-
-### ✨ Tính năng
-
-- 📖 **Tự động lấy nội dung** — sử dụng Playwright để tải và trích xuất chương truyện.
-- 🌍 **Hai phiên bản ngôn ngữ** — tiếng Việt và tiếng Anh, mỗi bản có lựa chọn giọng đọc riêng.
-- 🗣️ **Nhiều giọng đọc** — giọng nữ, nam; bản tiếng Anh có thêm lựa chọn giọng Mỹ và Anh.
-- 📚 **Xử lý chương dài** — chia văn bản thành các đoạn nhỏ để tạo audio.
-- 🔄 **Tự động thử lại** — thử lại khi tạo audio thất bại, với thời gian chờ tăng dần.
-- 🎵 **Một file MP3 hoàn chỉnh** — ghép các đoạn audio trực tiếp bằng Python, không cần FFmpeg.
-- 🧹 **Tự động dọn dẹp** — xóa các file audio tạm sau khi hoàn tất.
-- 📂 **Lưu trữ gọn gàng** — MP3 được lưu trong thư mục `audiobooks/`.
-
-### 🚀 Cách sử dụng
-
-**Yêu cầu:** Python 3.10 trở lên và kết nối Internet.
-
-1. Clone repository và mở terminal trong thư mục dự án.
-2. Tạo và kích hoạt môi trường ảo `venv`.
-3. Cài dependencies:
-
-   ```bash
-   python -m pip install -r requirements.txt
-   playwright install chromium
-   ```
-
-4. Chạy phiên bản phù hợp với truyện muốn nghe.
-
-**Truyện tiếng Việt:**
-
-```bash
-python wattpad_to_audio.py "https://www.wattpad.com/..."
-```
-
-Giọng nam:
-
-```bash
-python wattpad_to_audio.py "https://www.wattpad.com/..." --voice nam
-```
-
-**Truyện tiếng Anh:**
-
-```bash
-python wattpad_to_audio_en.py "https://www.wattpad.com/..."
-```
-
-Giọng nữ Anh:
-
-```bash
-python wattpad_to_audio_en.py "https://www.wattpad.com/..." --voice uk-female
-```
-
-Giọng nam Anh:
-
-```bash
-python wattpad_to_audio_en.py "https://www.wattpad.com/..." --voice uk-male
-```
-
-5. Nếu muốn, điều chỉnh tốc độ đọc bằng `--rate +10%` hoặc `--rate -10%`.
-6. Tìm file MP3 trong thư mục `audiobooks/`.
-
-### ⚠️ Lưu ý
-
-- Script phụ thuộc vào cấu trúc trang Wattpad hiện tại nên có thể cần cập nhật nếu website thay đổi.
-- Edge TTS cần Internet để tạo giọng đọc.
-- Chương dài có thể mất vài phút để xử lý.
-- Các đoạn MP3 được nối trực tiếp, không thông qua FFmpeg.
-- Nên chọn giọng đọc phù hợp với ngôn ngữ truyện để có trải nghiệm nghe tốt hơn.
-- Hãy tôn trọng điều khoản sử dụng của Wattpad, bản quyền và quyền lợi của tác giả.
-
----
+- An internet connection is required for Wattpad extraction and Edge TTS.
+- Long chapters may take a few minutes to process.
+- Please respect Wattpad's Terms of Service and authors' copyrights.
 
 ## That's all
 
-I just wanted something **simple enough to let me code while listening to stories — in either Vietnamese or English.**
+I just wanted to code while listening to stories. Now I can.
 
-So here it is.
+**Choose a language → Paste a link → Generate audio → Code while listening. 🎧**
 
-**Choose your language → Paste a link → Generate audio → Code while listening. 🎧**
+One tiny problem, though...
+
+**I built this tool to listen to stories, only to discover that the story I picked had been dropped. 💀**
+
+Now I can automate the reading, but I can't automate the author's motivation to continue. 😭
+
+Anyway, at least the code is still running.
